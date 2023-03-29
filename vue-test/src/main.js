@@ -2,8 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import getImagePath from './shared/helpers/getImagePath'
 
 Vue.config.productionTip = false
+
+Vue.prototype.$getImagePath = getImagePath
 
 /* eslint-disable no-new */
 new Vue({

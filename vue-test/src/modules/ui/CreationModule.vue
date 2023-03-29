@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-btn label="Создать" @clcik="openCreationModal"/>
+    <a-btn @clcik="openCreationModal" bordered>Create</a-btn>
+    <a-btn @clcik="openCreationModal" :icon-path="$getImagePath('close_icon.png')"></a-btn>
     <employees-list ref="employeesList"/>
     <edit-employee-modal
       ref="editEmployeeModal"
@@ -20,23 +21,22 @@ export default {
     EmployeesList,
     EditEmployeeModal,
     ABtn
-},
+  },
   data () {
     return {
     }
   },
-  methods:{
-    openCreationModal(){
+  methods: {
+    openCreationModal () {
       this.$refs.editEmployeeModal.open()
     },
-    async saveEmployee(employee){
-      try{
+    async saveEmployee (employee) {
+      try {
         await createEmployee(employee)
         this.$refs.employeesList.update()
-      }
-      catch(error){
+      } catch (error) {
         // TODO: вынести в отдельный общий обработчик
-        console.error(error);
+        console.error(error)
       }
     }
   }
