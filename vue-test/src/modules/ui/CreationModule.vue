@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-btn @clcik="openCreationModal" bordered>Create</a-btn>
-    <a-btn @clcik="openCreationModal" :icon-path="$getImagePath('close_icon.png')"></a-btn>
+    <a-btn @click="openCreationModal" bordered>Создать</a-btn>
+    <a-btn @click="openCreationModal" :icon-path="$getImagePath('close_icon.png')"></a-btn>
     <employees-list ref="employeesList"/>
     <edit-employee-modal
       ref="editEmployeeModal"
@@ -27,7 +27,12 @@ export default {
     }
   },
   methods: {
-    openCreationModal () {
+    async openCreationModal () {
+      const popupResult = await this.$refs.editEmployeeModal.open()
+
+      if (popupResult) {
+        alert('Confirmed!')
+      }
       this.$refs.editEmployeeModal.open()
     },
     async saveEmployee (employee) {
