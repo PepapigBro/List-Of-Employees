@@ -4,9 +4,11 @@
     :style="btnStyles"
     :class="btnClasses"
     @click="$emit('click', $event)">
-    <slot></slot>
-
+    <div>
+      <slot></slot>
+    </div>
     <img v-if="iconPath"
+        :style="iconStyles"
          :src="iconPath"
          />
   </button>
@@ -16,8 +18,8 @@
 
 const availableSizes = Object.freeze({
   xs: {name: 'xs', size: '1em'},
-  sm: {name: 'sm', size: '2em'},
-  md: {name: 'md', size: '3em'}
+  sm: {name: 'sm', size: '1.2em'},
+  md: {name: 'md', size: '1.5em'}
 })
 
 export default {
@@ -39,10 +41,15 @@ export default {
     }
   },
   computed: {
+    iconStyles () {
+      return {
+        'height': this.sizePx
+      }
+    },
     btnStyles () {
       return {
         'font-size': this.sizePx,
-        '': this.bordered
+        'padding': this.iconPath ? '' : '0.5em 0.5em'
       }
     },
     btnClasses () {
@@ -60,8 +67,8 @@ export default {
 
 <style scoped>
  .button {
-    display: inline-block;
-    padding: 0.5em 0.5em;
+    display: flex;
+
     background: #fff;
     color: tomato;
     font-family: "Quicksand", sans-serif;
@@ -85,5 +92,12 @@ export default {
   .button.bordered:hover {
     background: tomato;
     color: #fff;
+  }
+
+  img {
+    aspect-ratio: 1/1;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
   }
 </style>

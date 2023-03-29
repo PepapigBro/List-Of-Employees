@@ -1,22 +1,33 @@
 <template>
   <a-modal ref="modal"
           header="Создание пользователя">
-    <slot>
+    <div class="container">
+      <a-input v-model="user.name"
+               with-border
+               placeholder="Имя"
+               class="input"/>
+      <a-input v-model="user.phone"
+               with-border
+               placeholder="Телефон"
+               class="input"/>
+    </div>
 
-    </slot>
   </a-modal>
 </template>
 
 <script>
 import AModal from '../../../shared/ui/AModal/AModal'
+import AInput from '../../../shared/ui/AInput/AInput'
 
 export default {
   name: 'EditEmployeeModal',
   components: {
-    AModal
+    AModal,
+    AInput
   },
   data () {
     return {
+      user: {}
     }
   },
   mounted () {
@@ -30,4 +41,12 @@ export default {
 </script>
 
 <style scoped>
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .input{
+    margin: 10px 0 0 0;
+  }
 </style>

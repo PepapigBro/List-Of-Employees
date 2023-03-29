@@ -1,27 +1,31 @@
 <template>
   <div v-if="isOpen" class="backdrop" @click="close">
     <div class="popup" @click.stop>
-      <h3>{{ header }}</h3>
-      <hr />
+      <header>
+        <div class="header-title"><h3>{{ header }}</h3></div>
+        <a-btn @click="close" :icon-path="$getImagePath('close_icon.png')" size="sm"></a-btn>
+      </header>
+
       <slot></slot>
       <hr />
-      <div class="footer">
+
+      <footer>
         <slot name="actions" :close="close" :confirm="confirm">
-          <a-btnVue @click="confirm">{{ okBtnText }}</a-btnVue>
+          <a-btn @click="confirm">{{ okBtnText }}</a-btn>
         </slot>
-      </div>
+      </footer>
     </div>
   </div>
 </template>
 
 <script>
-import ABtnVue from '../../../shared/ui/ABtn/ABtn.vue'
+import ABtn from '../../../shared/ui/ABtn/ABtn.vue'
 
 export default {
   name: 'AModal',
   popupController: null,
   components: {
-    ABtnVue
+    ABtn
   },
   props: {
     header: {type: String, default: 'Хидер'},
@@ -73,6 +77,8 @@ export default {
 
 <style scoped>
 .popup {
+  display: flex;
+  flex-direction: column;
   top: 50px;
   padding: 20px;
   left: 50%;
@@ -98,7 +104,19 @@ export default {
   z-index: 100;
 }
 
-.footer {
-  text-align: right;
+footer {
+  display: flex;
+  justify-content: flex-end;
 }
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header-title{
+  margin: 0 30px 0 0;
+}
+
 </style>

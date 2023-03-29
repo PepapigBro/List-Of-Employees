@@ -1,7 +1,6 @@
 <template>
   <div>
     <a-btn @click="openCreationModal" bordered>Создать</a-btn>
-    <a-btn @click="openCreationModal" :icon-path="$getImagePath('close_icon.png')"></a-btn>
     <employees-list ref="employeesList"/>
     <edit-employee-modal
       ref="editEmployeeModal"
