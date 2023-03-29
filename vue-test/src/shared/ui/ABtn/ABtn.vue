@@ -2,7 +2,8 @@
   <button
     class="button"
     :style="btnStyles"
-    :class="btnClasses">
+    :class="btnClasses"
+    @click="$emit('click', $event)">
     <slot></slot>
 
     <img v-if="iconPath"
@@ -14,13 +15,14 @@
 <script>
 
 const availableSizes = Object.freeze({
-  xs: {name: 'xs', size: '2em'},
-  sm: {name: 'sm', size: '3em'},
-  md: {name: 'md', size: '4em'}
+  xs: {name: 'xs', size: '1em'},
+  sm: {name: 'sm', size: '2em'},
+  md: {name: 'md', size: '3em'}
 })
 
 export default {
   name: 'ABtn',
+  emits: ['click'],
   props: {
     bordered: {type: Boolean, default: false},
     iconPath: {type: String, default: null},
