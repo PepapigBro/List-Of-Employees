@@ -36,7 +36,6 @@ export default {
     async update () {
       this.employees = await this.$store.employee.fetchEmployees()
       this.$emit('users-updated', this.employees)
-      console.log('this.employees', this.employees)
     },
     sortNodes (field) {
       this.employees = sortEmployees(this.employees, field)

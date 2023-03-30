@@ -12,7 +12,7 @@
       <div class="sub-tree">
         <a-tree
           v-if="isItemExpanded(item)"
-          :items="getChildItems(item)"
+          :items="items"
           :parent-id="item.id"
           :itemLabel="itemLabel"
         />
@@ -43,9 +43,14 @@ export default {
       expandedItems: []
     }
   },
+  mounted () {
+  },
   computed: {
     currentLevelItems () {
-      return this.items.filter(i => i.parentId === this.parentId || (!i.parentId && !this.parentId))
+      const currentLevelItems = this.items.filter(i => i.parentId === this.parentId || (!i.parentId && !this.parentId))
+      console.log('this.items', this.items)
+      console.log('currentLevelItems', currentLevelItems)
+      return currentLevelItems
     }
   },
   methods: {
@@ -63,7 +68,7 @@ export default {
       return this.items.some(child => child.parentId === item.id)
     },
     getChildItems (item) {
-      return this.items.filter(child => child.parentId === item.id)
+      return this.currentLevelItems.filter(child => child.parentId === item.id)
     }
   }
 }
