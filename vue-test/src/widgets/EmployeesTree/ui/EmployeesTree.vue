@@ -1,12 +1,9 @@
 <template>
   <a-tree :items="employees"
-          :item-label="(item) => item.name"
+          :columns="columns"
           @sort="sortNodes">
-          <template v-slot="{ item }">
-            <div class="row-title" >
-              <div class="column-title">{{ item.name }}</div>
-              <div class="column-phone">{{ item.phone }}</div>
-            </div>
+          <template v-slot="{ item, column }">
+            <div class="cell" >{{ item[column.field] }}</div>
           </template>
   </a-tree>
 </template>
@@ -15,6 +12,7 @@
 import EmployeeRow from '../../../entities/EmployeeRow/ui/EmployeeRow'
 import ATree from '../../../shared/ui/ATree/ATree'
 import sortEmployees from '../api/sortEmployees'
+import Column from '../../../shared/ui/ATree/Column'
 
 export default {
   name: 'EmployeesTree',
@@ -26,7 +24,10 @@ export default {
   data () {
     return {
       employees: [],
-      treeKey: 0
+      columns: [
+        new Column({title: 'Имя', field: 'name'}),
+        new Column({title: 'Телефон', field: 'phone'})
+      ]
     }
   },
   mounted () {
@@ -45,22 +46,8 @@ export default {
 </script>
 
 <style scoped>
-.row-title {
+.cell {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   font-size: 24px;
-  display: flex;
-  justify-content: flex-end;
 }
-
-.column-title {
-  width: 300px;
-  background-color: darksalmon;
-}
-
-.column-phone {
-  margin-left: 32px;
-  width: 300px;
-  background-color: rgb(181, 233, 122);
-}
-
 </style>

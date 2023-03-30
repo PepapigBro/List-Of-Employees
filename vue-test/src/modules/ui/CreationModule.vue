@@ -20,7 +20,7 @@
 <script>
 import ABtn from '../../shared/ui/ABtn/ABtn'
 import EditEmployeeModal from '../../widgets/EditEmployeeModal/ui/EditEmployeeModal'
-import EmployeesTree from '../../widgets/EmployeesList/ui/EmployeesTree'
+import EmployeesTree from '../../widgets/EmployeesTree/ui/EmployeesTree'
 
 export default {
   name: 'CreationModule',
@@ -55,6 +55,7 @@ export default {
   .container {
     display: flex;
     flex-direction: column;
+    width: 800px;
   }
 
   header {

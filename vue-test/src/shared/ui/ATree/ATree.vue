@@ -1,32 +1,43 @@
 <template>
-  <div>
-  <div v-for="item in currentLevelItems" :key="item.id">
-    <div @click="toggleItem(item)" class="row">
-        <div class="icon">
+  <div class="container">
+    <div v-for="item in currentLevelItems"
+        :key="item.id" class="column">
+        <div class="tree-row">
+    <div v-for="(column, index) in columns"
+      :key="column.field"
+      :style="{'width': column.width}"
+      >
+
+    <div @click="toggleItem(item)" class="row"
+    >
+        <div v-if="index == 0"
+             class="icon">
           <div v-if="hasChildren(item)" class="expand-icon">
               {{ isItemExpanded(item) ? "[-]" : "[+]" }}
           </div>
         </div>
-
-        <slot :item="item">
-          <div class="row-title">{{ itemLabel(item) }}</div>
+        <slot :item="item" :column="column">
+          <div class="row-title">{{ item[column.field] }}</div>
         </slot>
-
       </div>
+    </div>
+    </div>
 
-      <div class="sub-tree">
+    <div class="sub-tree">
         <a-tree
           v-if="isItemExpanded(item)"
           :items="items"
+          :columns="columns"
           :parent-id="item.id"
-          :itemLabel="itemLabel"
         >
-        <template v-slot="{ item }">
-          <slot :item="item"></slot>
+        <template v-slot="{ item, column }">
+          <slot :item="item" :column="column">
+            <div class="row-title">{{ item[column.field] }}</div>
+          </slot>
         </template>
         </a-tree>
     </div>
-  </div>
+</div>
 </div>
 </template>
 
@@ -42,10 +53,12 @@ export default {
       type: String,
       default: null
     },
-    itemLabel: {
-      type: Function,
+    columns: {
+      type: Array,
+      default: () => [],
       required: true
     }
+
   },
   data () {
     return {
@@ -82,11 +95,22 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  list-style-type: none;
-  padding-left: 0;
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
+.column{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.tree-row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 32px;
+}
 .row {
   display: flex;
   justify-content: flex-start;
