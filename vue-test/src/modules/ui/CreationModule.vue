@@ -4,8 +4,8 @@
       <div class="header-label">Список пользователей</div>
       <a-btn @click="openCreationModal" bordered>Создать</a-btn>
     </header>
-    <employees-list ref="employeesList"
-                    class="employees-list"/>
+    <employees-tree ref="employeesTree"
+                    class="employees-tree"/>
 
     <edit-employee-modal
       ref="editEmployeeModal"
@@ -16,13 +16,13 @@
 <script>
 import ABtn from '../../shared/ui/ABtn/ABtn'
 import EditEmployeeModal from '../../widgets/EditEmployeeModal/ui/EditEmployeeModal'
-import EmployeesList from '../../widgets/EmployeesList/ui/EmployeesList'
+import EmployeesTree from '../../widgets/EmployeesList/ui/EmployeesTree'
 import createEmployee from '../api/createEmployee'
 
 export default {
   name: 'CreationModule',
   components: {
-    EmployeesList,
+    EmployeesTree,
     EditEmployeeModal,
     ABtn
   },
@@ -32,16 +32,18 @@ export default {
   },
   methods: {
     async openCreationModal () {
-      const popupResult = await this.$refs.editEmployeeModal.open()
+      const user = await this.$refs.editEmployeeModal.open()
 
-      if (popupResult) {
-        console.log(popupResult)
+      if (user) {
+        console.log(user)
+        this.$store.employee.addNew(user)
+        this.$refs.employeesTree.update()
       }
     },
     async saveEmployee (employee) {
       try {
         await createEmployee(employee)
-        this.$refs.employeesList.update()
+        this.$refs.employeesTree.update()
       } catch (error) {
         // TODO: вынести в отдельный общий обработчик
         console.error(error)
@@ -68,7 +70,7 @@ export default {
     font-size: 32px;
     padding: 0 16px;
   }
-  .employees-list {
+  .employees-tree {
     margin-top: 32px;
   }
 

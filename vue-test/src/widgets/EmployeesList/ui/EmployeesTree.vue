@@ -14,7 +14,7 @@ import ATree from '../../../shared/ui/ATree/ATree'
 import sortEmployees from '../api/sortEmployees'
 
 export default {
-  name: 'EmployeesList',
+  name: 'EmployeesTree',
   components: {
     ATree,
     EmployeeRow
@@ -25,11 +25,12 @@ export default {
     }
   },
   mounted () {
-    this.congigureTree()
+    this.update()
   },
   methods: {
-    async congigureTree () {
+    async update () {
       this.employees = await this.$store.employee.fetchEmployees()
+      console.log('eeee', this.employees)
     },
     sortNodes (field) {
       this.employees = sortEmployees(this.employees, field)

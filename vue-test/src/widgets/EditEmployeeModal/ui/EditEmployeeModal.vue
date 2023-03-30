@@ -47,15 +47,16 @@ export default {
   },
   data () {
     return {
-      user: new User(),
+      user: {},
       users: []
     }
   },
   methods: {
     async open () {
+      const uid = await this.$UIdGenerator.createId()
+      this.user = new User({id: uid})
       this.$store.employee.fetchEmployees().then(users => { this.users = users })
 
-      this.user.id = await this.$UIdGenerator.createId()
       return this.$refs.modal.open(this.user)
     }
   }
