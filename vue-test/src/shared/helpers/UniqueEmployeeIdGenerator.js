@@ -1,7 +1,6 @@
 export default class UniqueEmployeeIdGenerator {
   constructor (store) {
     this._store = store
-    console.log('AAAA', store)
   }
 
   async createId () {

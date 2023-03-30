@@ -1,7 +1,12 @@
 <template>
-  <div>
-    <a-btn @click="openCreationModal" bordered>Создать</a-btn>
-    <employees-list ref="employeesList"/>
+  <div class="container">
+    <header>
+      <div class="header-label">Список пользователей</div>
+      <a-btn @click="openCreationModal" bordered>Создать</a-btn>
+    </header>
+    <employees-list ref="employeesList"
+                    class="employees-list"/>
+
     <edit-employee-modal
       ref="editEmployeeModal"
       @confirm="saveEmployee"/>
@@ -47,5 +52,24 @@ export default {
 </script>
 
 <style scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-label {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    padding: 0 16px;
+  }
+  .employees-list {
+    margin-top: 32px;
+  }
 
 </style>

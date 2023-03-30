@@ -1,10 +1,11 @@
 <template>
-  <ATree :nodes="nodes"
+  <a-tree :items="employees"
+          :item-label="(item) => item.name"
           @sort="sortNodes">
-          <template #default="{node}">
+          <!-- <template #default="{node}">
             <employee-row :node="node"/>
-          </template>
-  </ATree>
+          </template> -->
+  </a-tree>
 </template>
 
 <script>
@@ -20,7 +21,7 @@ export default {
   },
   data () {
     return {
-      nodes: []
+      employees: []
     }
   },
   mounted () {
@@ -28,10 +29,10 @@ export default {
   },
   methods: {
     async congigureTree () {
-      this.nodes = await this.$store.employee.fetchEmployees()
+      this.employees = await this.$store.employee.fetchEmployees()
     },
     sortNodes (field) {
-      this.nodes = sortEmployees(this.nodes, field)
+      this.employees = sortEmployees(this.employees, field)
     }
   }
 }

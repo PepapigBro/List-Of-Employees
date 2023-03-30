@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-
-    <employees-page/>
+    <div class="container">
+     <employees-page/>
+    </div>
   </div>
 </template>
 
@@ -24,5 +25,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
 }
 </style>
