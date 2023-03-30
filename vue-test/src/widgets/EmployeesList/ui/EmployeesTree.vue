@@ -49,11 +49,18 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   font-size: 24px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.column-title {
+  width: 300px;
+  background-color: darksalmon;
 }
 
 .column-phone {
   margin-left: 32px;
+  width: 300px;
+  background-color: rgb(181, 233, 122);
 }
 
 </style>

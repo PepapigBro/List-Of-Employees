@@ -1,24 +1,33 @@
 <template>
-  <ul>
-    <li v-for="item in currentLevelItems" :key="item.id">
-      <div @click="toggleItem(item)" class="row">
+  <div>
+  <div v-for="item in currentLevelItems" :key="item.id">
+    <div @click="toggleItem(item)" class="row">
+        <div class="icon">
+          <div v-if="hasChildren(item)" class="expand-icon">
+              {{ isItemExpanded(item) ? "[-]" : "[+]" }}
+          </div>
+        </div>
+
         <slot :item="item">
           <div class="row-title">{{ itemLabel(item) }}</div>
         </slot>
-        <div v-if="hasChildren(item)" class="expand-icon">
-            {{ isItemExpanded(item) ? "[-]" : "[+]" }}
-          </div>
+
       </div>
+
       <div class="sub-tree">
         <a-tree
           v-if="isItemExpanded(item)"
           :items="items"
           :parent-id="item.id"
           :itemLabel="itemLabel"
-        />
+        >
+        <template v-slot="{ item }">
+          <slot :item="item"></slot>
+        </template>
+        </a-tree>
     </div>
-    </li>
-  </ul>
+  </div>
+</div>
 </template>
 
 <script>
@@ -48,8 +57,6 @@ export default {
   computed: {
     currentLevelItems () {
       const currentLevelItems = this.items.filter(i => i.parentId === this.parentId || (!i.parentId && !this.parentId))
-      console.log('this.items', this.items)
-      console.log('currentLevelItems', currentLevelItems)
       return currentLevelItems
     }
   },
@@ -88,6 +95,9 @@ ul {
   cursor: pointer;
 }
 
+.icon {
+  width: 24px;
+}
 .row-title {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   font-size: 24px;
@@ -99,7 +109,7 @@ ul {
 }
 
 .sub-tree {
-  margin-left: 24px;
+  padding-left: 24px;
 }
 
 </style>
