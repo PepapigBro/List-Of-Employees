@@ -1,5 +1,5 @@
 # List-Of-Employees
-Test task for Middle+ level (vue, test-vue, localstorage)
+Test task for Middle+ level (vue 2, localstorage, архитектура FSD, 8ч)
 
 Техническое задание
 На изображении представлен мокап интерфейса. Стилизацию интерфейса оставляем на ваше усмотрение.
