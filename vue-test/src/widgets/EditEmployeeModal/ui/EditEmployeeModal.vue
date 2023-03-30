@@ -21,6 +21,7 @@
           class="input"
         />
         <a-select
+          :disabled="!users.length"
           v-model="user.parentId"
           :items="users"
           placeholder="Руководитель"

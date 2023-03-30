@@ -6,7 +6,7 @@ export default class EmployeeStore {
 
   fetchEmployees () {
     return new Promise((resolve, reject) => {
-      const employees = this._localstorageManager.get('employees')
+      const employees = this._localstorageManager.get('employees') || []
       resolve(employees)
     })
   }

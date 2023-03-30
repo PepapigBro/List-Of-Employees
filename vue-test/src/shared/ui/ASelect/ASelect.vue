@@ -1,6 +1,7 @@
 <template>
   <div>
-    <select v-model="selectedItem">
+    <select v-model="selectedItem"
+            :class="selectClasses">
       <option v-for="item in items"
               :key="item.id"
               style="width: 100%"
@@ -25,11 +26,22 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       selectedItem: null
+    }
+  },
+  computed: {
+    selectClasses () {
+      return {
+        'disabled': this.disabled
+      }
     }
   },
   watch: {
@@ -49,6 +61,10 @@ select {
   border-radius: 5px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   width: 100%;
+}
+
+select.disabled{
+  pointer-events: none;
 }
 
 .item {

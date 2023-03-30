@@ -2,6 +2,12 @@
   <a-tree :items="employees"
           :item-label="(item) => item.name"
           @sort="sortNodes">
+          <template v-slot="{ item }">
+            <div class="row-title" >
+              <div class="column-title">{{ item.name }}</div>
+              <div class="column-phone">{{ item.phone }}</div>
+            </div>
+          </template>
   </a-tree>
 </template>
 
@@ -16,9 +22,11 @@ export default {
     ATree,
     EmployeeRow
   },
+  emits: ['users-updated'],
   data () {
     return {
-      employees: []
+      employees: [],
+      treeKey: 0
     }
   },
   mounted () {
@@ -27,7 +35,8 @@ export default {
   methods: {
     async update () {
       this.employees = await this.$store.employee.fetchEmployees()
-      console.log('eeee', this.employees)
+      this.$emit('users-updated', this.employees)
+      console.log('this.employees', this.employees)
     },
     sortNodes (field) {
       this.employees = sortEmployees(this.employees, field)
@@ -37,5 +46,15 @@ export default {
 </script>
 
 <style scoped>
+.row-title {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-phone {
+  margin-left: 32px;
+}
 
 </style>

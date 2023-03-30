@@ -1,21 +1,19 @@
 <template>
   <ul>
-    <li v-for="item in items" :key="item.id">
+    <li v-for="item in currentLevelItems" :key="item.id">
       <div @click="toggleItem(item)" class="row">
-        <div class="icon">
-          <div v-if="hasChildren(item)" class="expand-icon">
-            {{ isItemExpanded(item) ? "[-]" : "[+]" }}
-          </div>
-        </div>
-
-        <slot>
+        <slot :item="item">
           <div class="row-title">{{ itemLabel(item) }}</div>
         </slot>
+        <div v-if="hasChildren(item)" class="expand-icon">
+            {{ isItemExpanded(item) ? "[-]" : "[+]" }}
+          </div>
       </div>
       <div class="sub-tree">
         <a-tree
           v-if="isItemExpanded(item)"
           :items="getChildItems(item)"
+          :parent-id="item.id"
           :itemLabel="itemLabel"
         />
     </div>
@@ -31,6 +29,10 @@ export default {
       type: Array,
       required: true
     },
+    parentId: {
+      type: String,
+      default: null
+    },
     itemLabel: {
       type: Function,
       required: true
@@ -39,6 +41,11 @@ export default {
   data () {
     return {
       expandedItems: []
+    }
+  },
+  computed: {
+    currentLevelItems () {
+      return this.items.filter(i => i.parentId === this.parentId || (!i.parentId && !this.parentId))
     }
   },
   methods: {
@@ -81,15 +88,13 @@ ul {
   font-size: 24px;
 }
 
-.icon {
-  width: 32px;
-}
 .expand-icon {
   font-size: 16px;
+  width: 24px;
 }
 
 .sub-tree {
-  margin-left: 16px;
+  margin-left: 24px;
 }
 
 </style>

@@ -5,11 +5,15 @@
       <a-btn @click="openCreationModal" bordered>Создать</a-btn>
     </header>
     <employees-tree ref="employeesTree"
-                    class="employees-tree"/>
+                    class="employees-tree"
+                    @users-updated="onUsersUpdated"/>
+    <div v-if="showNoItemsBox"
+         class="no-items-box">
+      Нет записей
+    </div>
 
     <edit-employee-modal
-      ref="editEmployeeModal"
-      @confirm="saveEmployee"/>
+      ref="editEmployeeModal"/>
   </div>
 </template>
 
@@ -17,7 +21,6 @@
 import ABtn from '../../shared/ui/ABtn/ABtn'
 import EditEmployeeModal from '../../widgets/EditEmployeeModal/ui/EditEmployeeModal'
 import EmployeesTree from '../../widgets/EmployeesList/ui/EmployeesTree'
-import createEmployee from '../api/createEmployee'
 
 export default {
   name: 'CreationModule',
@@ -28,25 +31,20 @@ export default {
   },
   data () {
     return {
+      showNoItemsBox: true
     }
   },
   methods: {
+    onUsersUpdated (users) {
+      this.showNoItemsBox = !users.length
+    },
     async openCreationModal () {
       const user = await this.$refs.editEmployeeModal.open()
 
       if (user) {
         console.log(user)
-        this.$store.employee.addNew(user)
+        await this.$store.employee.addNew(user)
         this.$refs.employeesTree.update()
-      }
-    },
-    async saveEmployee (employee) {
-      try {
-        await createEmployee(employee)
-        this.$refs.employeesTree.update()
-      } catch (error) {
-        // TODO: вынести в отдельный общий обработчик
-        console.error(error)
       }
     }
   }
@@ -75,6 +73,12 @@ export default {
     max-height: 60vh;
     max-width: 80vw;
     overflow: auto;
+  }
+
+  .no-items-box {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    background-color: #eee;
   }
 
 </style>
