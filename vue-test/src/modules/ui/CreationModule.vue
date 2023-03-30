@@ -68,10 +68,13 @@ export default {
   .header-label {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     font-size: 32px;
-    padding: 0 16px;
+    padding: 0 16px 0 0;
   }
   .employees-tree {
     margin-top: 32px;
+    max-height: 60vh;
+    max-width: 80vw;
+    overflow: auto;
   }
 
 </style>

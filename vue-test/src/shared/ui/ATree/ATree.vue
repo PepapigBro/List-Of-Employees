@@ -1,22 +1,30 @@
 <template>
   <ul>
     <li v-for="item in items" :key="item.id">
-      <div @click="toggleItem(item)">
-        {{ itemLabel(item) }}
-        <span v-if="hasChildren(item)">
-          {{ isItemExpanded(item) ? '[-]' : '[+]' }}
-        </span>
+      <div @click="toggleItem(item)" class="row">
+        <div class="icon">
+          <div v-if="hasChildren(item)" class="expand-icon">
+            {{ isItemExpanded(item) ? "[-]" : "[+]" }}
+          </div>
+        </div>
+
+        <slot>
+          <div class="row-title">{{ itemLabel(item) }}</div>
+        </slot>
       </div>
-      <a-tree v-if="isItemExpanded(item)" :items="getChildItems(item)" :itemLabel="itemLabel" />
+      <div class="sub-tree">
+        <a-tree
+          v-if="isItemExpanded(item)"
+          :items="getChildItems(item)"
+          :itemLabel="itemLabel"
+        />
+    </div>
     </li>
   </ul>
 </template>
 
 <script>
 export default {
-  // components: {
-  //   ATree
-  // },
   name: 'ATree',
   props: {
     items: {
@@ -51,6 +59,37 @@ export default {
       return this.items.filter(child => child.parentId === item.id)
     }
   }
-
 }
 </script>
+
+<style scoped>
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.row-title {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+}
+
+.icon {
+  width: 32px;
+}
+.expand-icon {
+  font-size: 16px;
+}
+
+.sub-tree {
+  margin-left: 16px;
+}
+
+</style>

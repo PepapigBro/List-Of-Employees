@@ -2,9 +2,6 @@
   <a-tree :items="employees"
           :item-label="(item) => item.name"
           @sort="sortNodes">
-          <!-- <template #default="{node}">
-            <employee-row :node="node"/>
-          </template> -->
   </a-tree>
 </template>
 
