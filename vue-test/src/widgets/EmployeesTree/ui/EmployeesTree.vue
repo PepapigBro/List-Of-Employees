@@ -1,7 +1,6 @@
 <template>
   <a-tree :items="employees"
-          :columns="columns"
-          @sort="sortNodes">
+          :columns="columns">
           <template v-slot="{ item, column }">
             <div class="cell" >{{ item[column.field] }}</div>
           </template>
@@ -9,16 +8,13 @@
 </template>
 
 <script>
-import EmployeeRow from '../../../entities/EmployeeRow/ui/EmployeeRow'
 import ATree from '../../../shared/ui/ATree/ATree'
-import sortEmployees from '../api/sortEmployees'
 import Column from '../../../shared/ui/ATree/Column'
 
 export default {
   name: 'EmployeesTree',
   components: {
-    ATree,
-    EmployeeRow
+    ATree
   },
   emits: ['users-updated'],
   data () {
@@ -37,9 +33,6 @@ export default {
     async update () {
       this.employees = await this.$store.employee.fetchEmployees()
       this.$emit('users-updated', this.employees)
-    },
-    sortNodes (field) {
-      this.employees = sortEmployees(this.employees, field)
     }
   }
 }
