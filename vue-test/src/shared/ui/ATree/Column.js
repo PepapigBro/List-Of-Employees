@@ -3,5 +3,6 @@ export default class Column {
     this.field = field
     this.title = title
     this.width = width
+    this.asc = false
   }
 }

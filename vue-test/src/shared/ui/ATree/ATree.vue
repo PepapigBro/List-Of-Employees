@@ -1,5 +1,15 @@
 <template>
   <div class="container">
+    <header class="tree-row">
+      <div v-for="column in columns"
+      :key="column.field"
+      :style="{'width': column.width}"
+      class="column-title"
+      @click="sort(column)"
+      >
+      {{ column.title }}
+      </div>
+    </header>
     <div v-for="item in currentLevelItems"
         :key="item.id" class="column">
         <div class="tree-row">
@@ -89,6 +99,19 @@ export default {
     },
     getChildItems (item) {
       return this.currentLevelItems.filter(child => child.parentId === item.id)
+    },
+    sort (column) {
+      column.asc = !column.asc
+      const sortField = column.field
+      const compare = (a, b) => {
+        if (a[sortField] < b[sortField]) {
+          return column.asc ? 1 : -1
+        } else {
+          return column.asc ? -1 : 1
+        }
+      }
+
+      this.items = this.items.sort(compare)
     }
   }
 }
@@ -134,6 +157,10 @@ export default {
 
 .sub-tree {
   padding-left: 24px;
+}
+
+.column-title {
+  cursor: pointer;
 }
 
 </style>
