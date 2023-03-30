@@ -10,7 +10,6 @@
 <script>
 import EmployeeRow from '../../../entities/EmployeeRow/ui/EmployeeRow'
 import ATree from '../../../shared/ui/ATree/ATree'
-import fetchEmployees from '../api/fetchEmployees'
 import sortEmployees from '../api/sortEmployees'
 
 export default {
@@ -18,20 +17,20 @@ export default {
   components: {
     ATree,
     EmployeeRow
-},
+  },
   data () {
     return {
       nodes: []
     }
   },
-  mounted(){
+  mounted () {
     this.congigureTree()
   },
-  methods:{
-    async congigureTree(){
-      this.nodes = await fetchEmployees()
+  methods: {
+    async congigureTree () {
+      this.nodes = await this.$store.employee.fetchEmployees()
     },
-    sortNodes(field){
+    sortNodes (field) {
       this.nodes = sortEmployees(this.nodes, field)
     }
   }

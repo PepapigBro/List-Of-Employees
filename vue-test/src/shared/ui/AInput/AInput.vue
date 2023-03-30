@@ -1,5 +1,6 @@
 <template>
-  <div :class="{ 'input-wrapper': true, 'with-border': withborder }">
+  <div :class="{ 'with-border': withborder }"
+        class="input-wrapper">
     <input
       type="text"
       :placeholder="placeholder"
@@ -43,6 +44,7 @@ export default {
 .input-wrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 input {

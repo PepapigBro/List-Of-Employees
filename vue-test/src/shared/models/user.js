@@ -1,10 +1,9 @@
-export default class User {
 
+export default class User {
   constructor ({id, name, phone, parentId} = {}) {
-    this.id = id ?? crypto.randomUUID()
+    this.id = id
     this.name = name
     this.phone = phone
     this.parentId = parentId
   }
-
 }

@@ -68,7 +68,6 @@ export default {
     },
 
     close () {
-      this.$options.popupController.resolve(false)
       this.isOpen = false
     }
   }
@@ -111,12 +110,12 @@ footer {
 
 header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
 .header-title{
-  margin: 0 30px 0 0;
+  /* margin: 0 30px 0 0; */
 }
 
 </style>
