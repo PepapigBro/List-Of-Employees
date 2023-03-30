@@ -30,9 +30,8 @@ export default {
       const popupResult = await this.$refs.editEmployeeModal.open()
 
       if (popupResult) {
-        alert('Confirmed!')
+        console.log(popupResult)
       }
-      this.$refs.editEmployeeModal.open()
     },
     async saveEmployee (employee) {
       try {

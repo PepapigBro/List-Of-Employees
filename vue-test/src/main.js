@@ -12,7 +12,6 @@ Vue.config.productionTip = false
 const store = new Store({localstorageManager: new LocalStorageManager()})
 Vue.prototype.$store = store
 Vue.prototype.$getImagePath = getImagePath
-console.log('RRRR', store)
 Vue.prototype.$UIdGenerator = new UniqueEmployeeIdGenerator(store.employee)
 
 /* eslint-disable no-new */

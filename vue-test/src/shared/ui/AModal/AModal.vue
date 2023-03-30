@@ -48,11 +48,11 @@ export default {
         this.close()
       }
     },
-    open () {
+    open (model) {
       let resolveFunc
       let rejectFunc
       const popupPromise = new Promise((resolve, reject) => {
-        resolveFunc = resolve
+        resolveFunc = () => resolve(model)
         rejectFunc = reject
       })
 
@@ -63,7 +63,7 @@ export default {
     },
 
     confirm () {
-      this.$options.popupController.resolve(true)
+      this.$options.popupController.resolve()
       this.isOpen = false
     },
 

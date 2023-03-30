@@ -22,7 +22,7 @@
         />
         <a-select
           v-model="user.parentId"
-          :items="items"
+          :items="users"
           placeholder="Руководитель"
           label="name"
           class="input"
@@ -36,6 +36,7 @@
 import AModal from '../../../shared/ui/AModal/AModal'
 import AInput from '../../../shared/ui/AInput/AInput'
 import ASelect from '../../../shared/ui/ASelect/ASelect'
+import User from '../../../shared/models/User'
 
 export default {
   name: 'EditEmployeeModal',
@@ -46,15 +47,16 @@ export default {
   },
   data () {
     return {
-      user: {},
-      items: []
+      user: new User(),
+      users: []
     }
   },
   methods: {
     async open () {
-      console.log('open', this.$store)
-      this.$store.employee.fetchEmployees().then(items => { this.items = items })
-      return this.$refs.modal.open()
+      this.$store.employee.fetchEmployees().then(users => { this.users = users })
+
+      this.user.id = await this.$UIdGenerator.createId()
+      return this.$refs.modal.open(this.user)
     }
   }
 }

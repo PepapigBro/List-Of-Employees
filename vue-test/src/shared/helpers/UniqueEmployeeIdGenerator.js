@@ -5,8 +5,8 @@ export default class UniqueEmployeeIdGenerator {
   }
 
   async createId () {
-    console.log('create ID')
-    const existingIds = await this._store.fetchEmployees()
+    const employees = await this._store.fetchEmployees()
+    const existingIds = employees.map(e => e.id)
     const max = existingIds.length > 0 ? Math.max(...existingIds) : 0
     return max + 1
   }
