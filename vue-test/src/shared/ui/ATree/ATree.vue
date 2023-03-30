@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <header class="tree-row">
+    <header v-if="!parentId"
+            class="tree-row">
       <div v-for="column in columns"
       :key="column.field"
       :style="{'width': column.width}"
